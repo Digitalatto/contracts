@@ -1,62 +1,7 @@
-/**
-*		Digitalatto (DGTL)
-*
-*		Total Supply: 100,000,000,000
-*
-*
-*		Main website
-*
-*		https://digitalatto.com
-*
-*
-*		Coin Website
-*
-*		https://digitalatto.io
-*
-*
-*		Wallet
-*
-*		https://dgtlwallet.com
-*
-*
-*		Digitalatto Blockchain Documentation
-*
-*		https://digitalattodoc.com
-*
-*
-*		Digitalatto Biz
-*
-*		https://digitalatto.biz
-*
-*
-*		News Portal
-*
-*		https://newsdgtl.com
-*
-*
-*		Merchandise
-*
-*		https://digitalatto.me
-*
-*
-*		Social Profiles
-*
-*		https://t.me/digitalatto
-*		https://twitter.com/DigitalattoDGTL
-*		https://www.facebook.com/digitalatto
-*		https://www.reddit.com/user/digitalatto
-*		https://www.linkedin.com/in/digitalatto
-*		https://www.instagram.com/digitalatto_dgtl
-*		https://www.youtube.com/channel/UC2RVsh5CNGhRk5_Oj8lfnlA
-*/
-
 //SPDX-License-Identifier: MIT
 
 pragma solidity 0.8.15;
 
-/**
- * SAFEMATH LIBRARY
- */
 library SafeMath {
     
     function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {
@@ -166,9 +111,6 @@ abstract contract Auth {
         authorizations[_owner] = true;
     }
 
-    /**
-     * Function modifier to require caller to be contract owner
-     */
     modifier onlyOwner() {
         require(isOwner(msg.sender), "!OWNER"); _;
     }
@@ -180,37 +122,22 @@ abstract contract Auth {
         require(isAuthorized(msg.sender), "!AUTHORIZED"); _;
     }
 
-    /**
-     * Authorize address. Owner only
-     */
     function authorize(address adr) public onlyOwner {
         authorizations[adr] = true;
     }
 
-    /**
-     * Remove address' authorization. Owner only
-     */
     function unauthorize(address adr) public onlyOwner {
         authorizations[adr] = false;
     }
 
-    /**
-     * Check if address is owner
-     */
     function isOwner(address account) public view returns (bool) {
         return account == owner;
     }
 
-    /**
-     * Return address' authorization status
-     */
     function isAuthorized(address adr) public view returns (bool) {
         return authorizations[adr];
     }
 
-    /**
-     * Transfer ownership to new address. Caller must be owner. Leaves old owner authorized
-     */
     function transferOwnership(address payable adr) public onlyOwner {
         owner = adr;
         authorizations[adr] = true;
@@ -827,6 +754,3 @@ contract DigitalattoCoin is IBEP20, Auth {
     event AutoLiquify(uint256 amountBNB, uint256 amountBOG);
     event BuybackMultiplierActive(uint256 duration);
 }
-
-// This Smart Contract is encoded by Cyble Network on behalf of Digitalatto LLC.
-// This Smart Contract and all other Digitalatto dApps are secured by Cyble Network on behalf of Digitalatto LLC.
